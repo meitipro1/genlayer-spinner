@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "genlayer-loader",
+  "type": "registry:ui",
+  "title": "GenLayer Loader",
+  "description": "Animated loading spinner built from the GenLayer mark. Five variants plus an ecosystem orbit, one flat accent each, no dependencies.",
+  "files": [
+    {
+      "path": "src/genlayer-loader.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/genlayer-loader.tsx"
+    },
+    {
+      "path": "src/genlayer-loader.css",
+      "type": "registry:file",
+      "target": "components/ui/genlayer-loader.css"
+    }
+  ]
+}

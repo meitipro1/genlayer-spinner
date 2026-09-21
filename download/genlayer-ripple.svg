@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="96" height="96" role="img" aria-label="Loading">
+  <title>GenLayer loading</title>
+  <style>
+    .t { animation: wave 1.5s ease-in-out infinite }
+    .t1 { fill: #110FFF }
+    .t2 { fill: #3D14FA }
+    .t3 { fill: #6318F7 }
+    .t4 { fill: #7D1FEF }
+    .t5 { fill: #9727E7 }
+    .t6 { fill: #B11FCD }
+    .t7 { fill: #CA13B3 }
+    .t8 { fill: #DA31A6 }
+    .t9 { fill: #EA5098 }
+    @keyframes wave {
+      0%        { opacity: .08 }
+      26%       { opacity: 1 }
+      62%, 100% { opacity: .08 }
+    }
+    @media (prefers-color-scheme: dark) {
+      .t1 { fill: #4A49FF }
+      .t2 { fill: #6241FB }
+      .t3 { fill: #7736F8 }
+      .t4 { fill: #862FF0 }
+      .t5 { fill: #9727E7 }
+      .t6 { fill: #B11FCD }
+      .t7 { fill: #CA13B3 }
+      .t8 { fill: #DA31A6 }
+      .t9 { fill: #EA5098 }
+    }
+    @media (prefers-reduced-motion: reduce) { .t { animation: none; opacity: 1 } }
+  </style>
+  <defs><clipPath id="m"><path d="M45.8 8.2 45.8 37.9 30.4 69.9 44.9 77.5 4.9 93.1Z M54.2 8.2 95.1 93.1 55.1 77.5 69.6 69.9 54.2 37.9Z M50 48.7 58.8 66.4 50 70.8 41.2 66.4Z"/></clipPath></defs>
+  <g clip-path="url(#m)">
+  <rect class="t t1" x="0" y="0" width="33.4" height="33.4" style="animation-delay:0ms"/>
+  <rect class="t t2" x="33.3" y="0" width="33.4" height="33.4" style="animation-delay:100ms"/>
+  <rect class="t t3" x="66.6" y="0" width="33.4" height="33.4" style="animation-delay:200ms"/>
+  <rect class="t t4" x="0" y="33.3" width="33.4" height="33.4" style="animation-delay:100ms"/>
+  <rect class="t t5" x="33.3" y="33.3" width="33.4" height="33.4" style="animation-delay:200ms"/>
+  <rect class="t t6" x="66.6" y="33.3" width="33.4" height="33.4" style="animation-delay:300ms"/>
+  <rect class="t t7" x="0" y="66.6" width="33.4" height="33.4" style="animation-delay:200ms"/>
+  <rect class="t t8" x="33.3" y="66.6" width="33.4" height="33.4" style="animation-delay:300ms"/>
+  <rect class="t t9" x="66.6" y="66.6" width="33.4" height="33.4" style="animation-delay:400ms"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+{
+  "name": "genlayer-spinner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Five animated loading spinners built from the GenLayer mark. Community submission for the GenLayer Portal spinner mission.",
+  "keywords": [
+    "genlayer",
+    "loader",
+    "spinner",
+    "css-animation",
+    "svg",
+    "shadcn",
+    "react"
+  ],
+  "license": "MIT",
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node build/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node build/build.mjs && node scripts/check.mjs",
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
+}

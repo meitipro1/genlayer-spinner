@@ -1,0 +1,722 @@
+/* GenLayer loader - community submission for the Portal spinner mission.
+
+   Plain CSS. No Tailwind, no preprocessor, no npm package, no image files.
+   Drop it into a global stylesheet and use the markup in README.md, or copy
+   one variant's block out on its own.
+
+   Every internal dimension is em, and `font-size` on the root is the loader's
+   full outer footprint - the box you lay out is the box it paints in, at every
+   frame of the loop. Perspective is in em too, so the 3D variants project
+   identically at 16px and at 160px.
+
+   Colour comes from `currentColor`, so `color` on the root or any ancestor
+   restyles the whole thing. */
+
+/* ---------- palette ----------
+   Kinetic Cobalt is GenLayer's single brand accent. Teal and amber are the
+   hues the design assigns to two individual variants.
+
+   Each hue is defined twice, because no single hex clears 3:1 on both Carbon
+   Void and Ceramic Node - the measured ratios are in README.md. The light set
+   is the default. Mark a surface with `data-gl-surface="dark"` and the dark
+   set takes over for everything inside it; a project that marks nothing gets
+   the right set from `prefers-color-scheme` on its own.
+
+   These are plain custom properties rather than selector overrides, so the
+   NEAREST marked ancestor wins. A light panel inside a dark page is one
+   attribute, at any depth, with no specificity to fight. */
+
+:root {
+  --gl-cobalt: #110fff; /* Kinetic Cobalt, brand exact - 7.59:1 on Ceramic Node */
+  --gl-teal: #008081; /*                                 4.37:1 */
+  --gl-amber: #b06f00; /*                                3.76:1 */
+
+  --gl-t1: #110fff;
+  --gl-t2: #3d14fa;
+  --gl-t3: #6318f7;
+  --gl-t4: #7d1fef;
+  --gl-t5: #9727e7;
+  --gl-t6: #b11fcd;
+  --gl-t7: #ca13b3;
+  --gl-t8: #da31a6;
+  --gl-t9: #ea5098;
+}
+
+/* Cobalt on Carbon Void measures 2.43:1, under the 3:1 floor WCAG sets for a
+   graphic that carries meaning, so it lifts. Teal and amber already clear it
+   on dark and stay at the design's own values. */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-gl-surface="light"]) {
+    --gl-cobalt: #4b49ff; /* 3.55:1 on Carbon Void */
+    --gl-teal: #00aaab; /*    7.04:1 */
+    --gl-amber: #ed990e; /*   8.79:1 */
+
+    --gl-t1: #4a49ff;
+    --gl-t2: #6241fb;
+    --gl-t3: #7736f8;
+    --gl-t4: #862ff0;
+    --gl-t5: #9727e7;
+    --gl-t6: #b11fcd;
+    --gl-t7: #ca13b3;
+    --gl-t8: #da31a6;
+    --gl-t9: #ea5098;
+  }
+}
+
+[data-gl-surface="light"] {
+  --gl-cobalt: #110fff;
+  --gl-teal: #008081;
+  --gl-amber: #b06f00;
+
+  --gl-t1: #110fff;
+  --gl-t2: #3d14fa;
+  --gl-t3: #6318f7;
+  --gl-t4: #7d1fef;
+  --gl-t5: #9727e7;
+  --gl-t6: #b11fcd;
+  --gl-t7: #ca13b3;
+  --gl-t8: #da31a6;
+  --gl-t9: #ea5098;
+}
+
+[data-gl-surface="dark"] {
+  --gl-cobalt: #4b49ff;
+  --gl-teal: #00aaab;
+  --gl-amber: #ed990e;
+
+  --gl-t1: #4a49ff;
+  --gl-t2: #6241fb;
+  --gl-t3: #7736f8;
+  --gl-t4: #862ff0;
+  --gl-t5: #9727e7;
+  --gl-t6: #b11fcd;
+  --gl-t7: #ca13b3;
+  --gl-t8: #da31a6;
+  --gl-t9: #ea5098;
+}
+
+.gl {
+  display: inline-grid;
+  place-items: center;
+  line-height: 1;
+  color: var(--gl-cobalt, #110fff);
+}
+
+.gl > svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* ---------- converge ----------
+   The three parts of the mark fly in and lock into the complete logo.
+
+   Translate values are in the mark's own 100-unit space, so the throw distance
+   scales with the size on its own. The parts travel 26 of those units, which
+   is .148em at the assembled mark's 70.4% - exactly the padding reserved here,
+   so the widest frame of the loop lands on the footprint's edge and never
+   past it. */
+
+.gl--converge {
+  padding: 0.148em;
+  box-sizing: content-box;
+}
+.gl--converge > svg {
+  width: 0.704em;
+  height: 0.704em;
+}
+.gl-cv {
+  overflow: visible;
+}
+.gl-cv-l {
+  animation: gl-cv-l 2s cubic-bezier(0.5, 0, 0.35, 1) infinite;
+}
+.gl-cv-r {
+  animation: gl-cv-r 2s cubic-bezier(0.5, 0, 0.35, 1) infinite;
+}
+.gl-cv-c {
+  animation: gl-cv-c 2s cubic-bezier(0.5, 0, 0.35, 1) infinite;
+}
+
+@keyframes gl-cv-l {
+  0% {
+    transform: translate(-26px, 15px);
+    opacity: 0.12;
+  }
+  30%,
+  70% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-26px, 15px);
+    opacity: 0.12;
+  }
+}
+@keyframes gl-cv-r {
+  0% {
+    transform: translate(26px, 15px);
+    opacity: 0.12;
+  }
+  30%,
+  70% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(26px, 15px);
+    opacity: 0.12;
+  }
+}
+@keyframes gl-cv-c {
+  0% {
+    transform: translate(0, -20px);
+    opacity: 0.12;
+  }
+  30%,
+  70% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, -20px);
+    opacity: 0.12;
+  }
+}
+
+/* ---------- prism ----------
+   A wireframe cube breathing around the mark.
+
+   The six faces sit at half the cube's side, which is what makes it a cube,
+   and breathe out to 1.76x that. A face at the far end of the breath, with the
+   cube side on, reaches sqrt(w^2 + z^2) from the centre - so the cube itself is
+   47.6% of the footprint and the rest is the room that sweep needs. */
+
+.gl--prism {
+  perspective: 11.5em;
+  padding: 0.262em;
+  box-sizing: content-box;
+}
+.gl-cube {
+  position: relative;
+  width: 0.476em;
+  height: 0.476em;
+  transform-style: preserve-3d;
+  animation: gl-spin 2.4s linear infinite;
+}
+.gl-side {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.gl-side:nth-of-type(2) {
+  transform: rotateY(180deg);
+}
+.gl-side:nth-of-type(3) {
+  transform: rotateY(90deg);
+}
+.gl-side:nth-of-type(4) {
+  transform: rotateY(-90deg);
+}
+.gl-side:nth-of-type(5) {
+  transform: rotateX(90deg);
+}
+.gl-side:nth-of-type(6) {
+  transform: rotateX(-90deg);
+}
+.gl-side i {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: 0.027em solid currentColor;
+  background: color-mix(in oklab, currentColor 5%, transparent);
+  animation: gl-breathe 2.4s ease-in-out infinite;
+}
+.gl-core {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.209em;
+  height: 0.209em;
+  fill: currentColor;
+  animation: gl-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes gl-spin {
+  from {
+    transform: rotateX(-16deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-16deg) rotateY(360deg);
+  }
+}
+@keyframes gl-breathe {
+  0%,
+  100% {
+    transform: translateZ(0.238em);
+    opacity: 1;
+  }
+  50% {
+    transform: translateZ(0.419em);
+    opacity: 0.28;
+  }
+}
+@keyframes gl-pulse {
+  0%,
+  100% {
+    transform: scale(0.66);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* ---------- vault ----------
+   A solid block tumbling with the mark on four faces.
+
+   Faces sit at a quarter of the footprint, half the block's own side, so the
+   six of them close into a cube rather than a slab. The floor bar hangs below
+   the block, so the padding is asymmetric: .5em of block, .14em of headroom
+   and .36em underneath for the bar and its stretch. */
+
+.gl--vault {
+  position: relative;
+  perspective: 13.5em;
+  /* the padding is asymmetric, so the vanishing point has to be moved off the
+     padding box's centre and onto the block's */
+  perspective-origin: 50% 39%;
+  color: var(--gl-teal, #008081);
+  padding: 0.14em 0.25em 0.36em;
+  box-sizing: content-box;
+}
+.gl-box {
+  position: relative;
+  width: 0.5em;
+  height: 0.5em;
+  transform-style: preserve-3d;
+  animation: gl-tumble 2.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+.gl-facet {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: currentColor;
+}
+.gl-facet svg {
+  width: 56%;
+  height: 56%;
+  fill: #fff;
+}
+.gl-facet:nth-child(1) {
+  transform: translateZ(0.25em);
+}
+.gl-facet:nth-child(2) {
+  opacity: 0.74;
+  transform: rotateY(90deg) translateZ(0.25em);
+}
+.gl-facet:nth-child(3) {
+  opacity: 0.5;
+  transform: rotateY(180deg) translateZ(0.25em);
+}
+.gl-facet:nth-child(4) {
+  opacity: 0.74;
+  transform: rotateY(-90deg) translateZ(0.25em);
+}
+.gl-facet:nth-child(5) {
+  opacity: 0.9;
+  transform: rotateX(90deg) translateZ(0.25em);
+}
+.gl-facet:nth-child(6) {
+  opacity: 0.3;
+  transform: rotateX(-90deg) translateZ(0.25em);
+}
+/* A sibling of the block, not a child of it. Inside .gl-box it inherits
+   preserve-3d and the tumble, so the "floor" pitches and rolls with the thing
+   it is supposed to be lying under. */
+.gl-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0.5em;
+  height: 0.05em;
+  margin-left: -0.25em;
+  background: currentColor;
+  animation: gl-floor 2.4s ease-in-out infinite;
+}
+
+@keyframes gl-tumble {
+  0% {
+    transform: rotateX(-20deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(-20deg) rotateY(360deg);
+  }
+}
+@keyframes gl-floor {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scaleX(1.5);
+    opacity: 0.14;
+  }
+}
+
+/* ---------- ripple ----------
+   Nine tiles clipped to the mark's silhouette, filling in on a diagonal wave.
+
+   The tiles never leave the silhouette, so the wave reads as the logo filling
+   in rather than as nine loose squares. This is the one place a colour ramp
+   survives, because the ramp is what makes the wave legible. */
+
+.gl-tile {
+  animation: gl-wave 1.5s ease-in-out infinite;
+}
+.gl-tile:nth-child(1) {
+  fill: var(--gl-t1);
+}
+.gl-tile:nth-child(2) {
+  fill: var(--gl-t2);
+}
+.gl-tile:nth-child(3) {
+  fill: var(--gl-t3);
+}
+.gl-tile:nth-child(4) {
+  fill: var(--gl-t4);
+}
+.gl-tile:nth-child(5) {
+  fill: var(--gl-t5);
+}
+.gl-tile:nth-child(6) {
+  fill: var(--gl-t6);
+}
+.gl-tile:nth-child(7) {
+  fill: var(--gl-t7);
+}
+.gl-tile:nth-child(8) {
+  fill: var(--gl-t8);
+}
+.gl-tile:nth-child(9) {
+  fill: var(--gl-t9);
+}
+
+@keyframes gl-wave {
+  0% {
+    opacity: 0.08;
+  }
+  26% {
+    opacity: 1;
+  }
+  62%,
+  100% {
+    opacity: 0.08;
+  }
+}
+
+/* ---------- honeycomb ----------
+   Six cells ringing the mark, closing on a 0.1s stagger.
+
+   The ring is 2.83 cells wide, so the comb runs at .3529em of the root to keep
+   the whole thing inside the footprint, and drops .25 of its own em to put the
+   ring's centre on the box's centre rather than the comb box's. */
+
+.gl--honeycomb {
+  width: 1em;
+  height: 1em;
+  color: var(--gl-amber, #b06f00);
+}
+.gl-comb {
+  position: relative;
+  display: inline-block;
+  font-size: 0.3529em;
+  width: 1em;
+  height: 1em;
+  transform: translateY(0.25em);
+}
+.gl-comb i {
+  position: absolute;
+  width: 1em;
+  height: 0.5em;
+  background: currentColor;
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  animation: gl-comb 2.1s ease-in-out infinite backwards;
+}
+.gl-comb i:nth-child(1) {
+  top: -1em;
+  left: 0;
+}
+.gl-comb i:nth-child(2) {
+  top: -0.5em;
+  left: 0.9167em;
+  animation-delay: 0.1s;
+}
+.gl-comb i:nth-child(3) {
+  top: 0.5em;
+  left: 0.9167em;
+  animation-delay: 0.2s;
+}
+.gl-comb i:nth-child(4) {
+  top: 1em;
+  left: 0;
+  animation-delay: 0.3s;
+}
+.gl-comb i:nth-child(5) {
+  top: 0.5em;
+  left: -0.9167em;
+  animation-delay: 0.4s;
+}
+.gl-comb i:nth-child(6) {
+  top: -0.5em;
+  left: -0.9167em;
+  animation-delay: 0.5s;
+}
+.gl-comb-core {
+  position: absolute;
+  top: -0.06em;
+  left: 0.18em;
+  width: 0.64em;
+  height: 0.64em;
+  fill: currentColor;
+  animation: gl-comb-core 2.1s ease-in-out infinite;
+}
+
+@keyframes gl-comb {
+  0%,
+  100% {
+    opacity: 0.1;
+    transform: scale(0.34);
+  }
+  12%,
+  62% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes gl-comb-core {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---------- orbit ----------
+   GenLayer at the centre, the ecosystem in orbit on five rings.
+
+   Not a general-purpose spinner: it needs 240px or more and it loads one image
+   per project, so it belongs on an ecosystem or landing surface and never in a
+   button. Ring diameters and chip sizes are fractions of the footprint, so the
+   whole system still scales on one number. */
+
+.gl--orbit {
+  perspective: 4.2em;
+  transform-style: preserve-3d;
+}
+.gl-orbit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1em;
+  height: 1em;
+  perspective: 4.2em;
+  transform-style: preserve-3d;
+}
+.gl-orbit-sweep {
+  position: absolute;
+  inset: 0.02em;
+  border: 1px dashed color-mix(in oklab, currentColor 22%, transparent);
+  border-radius: 50%;
+  animation: gl-sweep 22s linear infinite;
+}
+/* The ring's border does not spin - only the carrier inside it does. A square
+   box painting a circle has a bounding box that grows by root two as it turns,
+   which is a footprint nothing is actually painting into. */
+.gl-orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+  transform: rotateX(64deg);
+  transform-style: preserve-3d;
+}
+.gl-orbit-spin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: gl-ring linear infinite;
+}
+/* A static arm carries the project's angle on the ring, the hold counter-spins
+   the ring's rotation, and the chip unwinds its own arm angle and then the
+   ecliptic tilt.
+
+   That order is the whole trick. Rotations do not commute, so the chip has to
+   undo the chain in reverse: rotate(-deg) then rotateX(-64deg). Tilting first
+   leaves Rx(64) Rz(deg) Rx(-64) Rz(-deg) on the image, which is the identity
+   only at 0 and 180 degrees and shears every chip in between into a sliver. */
+.gl-orbit-arm {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.gl-orbit-hold {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  animation: gl-anti linear infinite;
+}
+.gl-orbit-hold img {
+  position: absolute;
+  display: block;
+  /* The hold is a zero by zero point on the ring, so a host reset of
+     `img { max-width: 100% }` - which is in Tailwind's preflight and in most
+     other resets - clamps every chip to 0 wide while leaving its height alone.
+     The component defends itself rather than asking the project not to. */
+  max-width: none;
+  max-height: none;
+  transform: rotateX(-64deg);
+}
+.gl-orbit-sun {
+  position: relative;
+  width: 0.195em;
+  height: 0.195em;
+  fill: currentColor;
+  animation: gl-sun 2.6s ease-in-out infinite;
+}
+
+@keyframes gl-ring {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes gl-anti {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes gl-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes gl-sun {
+  0%,
+  100% {
+    transform: scale(0.94);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* ---------- loading screen ---------- */
+
+.gl-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.gl-screen-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font: 500 11px/1 ui-monospace, SFMono-Regular, monospace;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #606060;
+}
+.gl-screen-dots {
+  display: flex;
+  gap: 3px;
+}
+.gl-screen-dots i {
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  animation: gl-dot 1.2s ease-in-out infinite;
+}
+.gl-screen-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.gl-screen-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes gl-dot {
+  0%,
+  100% {
+    opacity: 0.16;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* ---------- accessibility ----------
+   Stop every loop, but only neutralise the transforms that were ANIMATED. The
+   prism and vault variants place their faces with static rotateY / rotateX /
+   translateZ, and the honeycomb centres its ring with a translate - a blanket
+   transform:none would collapse the six faces onto one plane and knock the
+   comb off centre. */
+
+@media (prefers-reduced-motion: reduce) {
+  .gl *,
+  .gl {
+    animation: none !important;
+  }
+  .gl-cv-l,
+  .gl-cv-r,
+  .gl-cv-c,
+  .gl-cube,
+  .gl-box,
+  .gl-core,
+  .gl-comb i,
+  .gl-comb-core {
+    transform: none !important;
+  }
+  .gl-cv-l,
+  .gl-cv-r,
+  .gl-cv-c,
+  .gl-tile,
+  .gl-comb i {
+    opacity: 1;
+  }
+  .gl-side i {
+    transform: translateZ(0.238em) !important;
+    opacity: 1;
+  }
+  .gl-shadow {
+    opacity: 0.45;
+  }
+  .gl-orbit-sun {
+    transform: none !important;
+    opacity: 1;
+  }
+  .gl-screen-dots i {
+    opacity: 1;
+  }
+}

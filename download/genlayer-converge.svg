@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-21.1 -12.95 142.2 142.2" width="96" height="96" role="img" aria-label="Loading">
+  <title>GenLayer loading</title>
+  <style>
+    .l, .r, .c { animation: 2s cubic-bezier(.5,0,.35,1) infinite; fill: #110FFF }
+    .l { animation-name: l } .r { animation-name: r } .c { animation-name: c }
+    @keyframes l {
+      0%       { transform: translate(-26px, 15px); opacity: .12 }
+      30%, 70% { transform: translate(0, 0);        opacity: 1 }
+      100%     { transform: translate(-26px, 15px); opacity: .12 }
+    }
+    @keyframes r {
+      0%       { transform: translate(26px, 15px);  opacity: .12 }
+      30%, 70% { transform: translate(0, 0);        opacity: 1 }
+      100%     { transform: translate(26px, 15px);  opacity: .12 }
+    }
+    @keyframes c {
+      0%       { transform: translate(0, -20px);    opacity: .12 }
+      30%, 70% { transform: translate(0, 0);        opacity: 1 }
+      100%     { transform: translate(0, -20px);    opacity: .12 }
+    }
+    @media (prefers-color-scheme: dark) { .l, .r, .c { fill: #4B49FF } }
+    @media (prefers-reduced-motion: reduce) {
+      .l, .r, .c { animation: none; opacity: 1 }
+    }
+  </style>
+  <polygon class="l" points="45.8,8.2 45.8,37.9 30.4,69.9 44.9,77.5 4.9,93.1"/>
+  <polygon class="r" points="54.2,8.2 95.1,93.1 55.1,77.5 69.6,69.9 54.2,37.9"/>
+  <polygon class="c" points="50,48.7 58.8,66.4 50,70.8 41.2,66.4"/>
+</svg>
